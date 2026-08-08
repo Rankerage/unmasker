@@ -65,7 +65,7 @@ class _LiveShareScreenState extends State<LiveShareScreen> {
                 children: [
                   Icon(Icons.people_outline, size: 48),
                   SizedBox(height: 8),
-                  Text('Maskboard Live', style: TextStyle(fontSize: 22, fontWeight: FontWeight.w700)),
+                  Text('Unmasker Live', style: TextStyle(fontSize: 22, fontWeight: FontWeight.w700)),
                   Text('실시간으로 함께 필기하세요', style: TextStyle(fontSize: 14, color: Colors.black54)),
                 ],
               ),

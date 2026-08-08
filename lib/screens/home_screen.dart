@@ -39,7 +39,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 decoration: InputDecoration(hintText: '노트 검색...', border: InputBorder.none, hintStyle: TextStyle(color: dark ? Colors.grey[500] : Colors.grey[400])),
                 onChanged: (v) => setState(() => _query = v)),
               )
-            : Text('Maskboard', style: TextStyle(fontWeight: FontWeight.w600, color: dark ? Colors.white : Colors.black)),
+            : const Text('Unmasker', style: TextStyle(fontWeight: FontWeight.w600, color: Colors.black)),
         actions: [
           IconButton(icon: Icon(_isSearching ? Icons.close : Icons.search, color: dark ? Colors.white : Colors.black),
             onPressed: () => setState(() { _isSearching = !_isSearching; _query = ''; _searchCtrl.clear(); })),

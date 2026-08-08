@@ -1,5 +1,5 @@
-name: maskboard
-description: Maskboard - Full-featured Samsung Notes style app
+name: unmasker
+description: Unmasker - Samsung Notes style app with mask/unmask tools, real-time sharing
 publish_to: 'none'
 version: 1.0.0+1
 

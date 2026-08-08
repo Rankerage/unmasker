@@ -11,18 +11,18 @@ void main() async {
   runApp(
     ChangeNotifierProvider<NoteService>.value(
       value: service,
-      child: const MaskboardApp(),
+      child: const UnmaskerApp(),
     ),
   );
 }
 
-class MaskboardApp extends StatelessWidget {
-  const MaskboardApp({super.key});
+class UnmaskerApp extends StatelessWidget {
+  const UnmaskerApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Maskboard',
+      title: 'Unmasker',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
