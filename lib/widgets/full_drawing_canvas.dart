@@ -425,23 +425,47 @@ class FullToolbar extends StatelessWidget {
                   ),
                 ),
             ]),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 12),
-            child: Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-              for (final w in [1.0, 2.0, 4.0, 6.0])
-                GestureDetector(
+          child: SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            padding: const EdgeInsets.symmetric(horizontal: 4),
+            child: Row(children: [
+              _tb(DrawingTool.pen, Icons.edit_outlined, '펜'),
+              _tb(DrawingTool.highlighter, Icons.format_color_text, '형광펜'),
+              _tb(DrawingTool.eraser, Icons.auto_fix_normal, '지우개'),
+              Container(width: 1, height: 20, color: Colors.grey[300]),
+              _tb(DrawingTool.mask, Icons.blur_on, '마스크'),
+              _tb(DrawingTool.unmask, Icons.blur_off, '언마스크'),
+              Container(width: 1, height: 20, color: Colors.grey[300]),
+              ...List.generate(4, (i) {
+                final w = [1.5, 3.0, 5.0, 8.0][i];
+                return GestureDetector(
                   onTap: () => onWidthChanged(w),
                   child: Container(
-                    width: 28, height: 28, alignment: Alignment.center,
-                    decoration: BoxDecoration(shape: BoxShape.circle, color: strokeWidth == w ? Colors.grey[300] : Colors.transparent),
-                    child: Container(width: w * 3, height: w * 3, decoration: BoxDecoration(shape: BoxShape.circle, color: currentColor)),
+                    width: 32, height: 32, alignment: Alignment.center,
+                    margin: const EdgeInsets.symmetric(horizontal: 2),
+                    decoration: BoxDecoration(shape: BoxShape.circle, color: strokeWidth == w ? Colors.grey[200] : Colors.transparent),
+                    child: Container(width: w * 2.5, height: w * 2.5, decoration: BoxDecoration(shape: BoxShape.circle, color: currentColor)),
                   ),
-                ),
+                );
+              }),
+            ]),
             ]),
           ),
         ],
       ]),
+    );
+  }
+
+  Widget _tb(DrawingTool tool, IconData icon, String label) {
+    final sel = currentTool == tool;
+    return GestureDetector(
+      onTap: () => onToolChanged(tool),
+      child: Container(
+        margin: const EdgeInsets.symmetric(horizontal: 2),
+        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+        decoration: BoxDecoration(color: sel ? Colors.grey[200] : Colors.transparent, borderRadius: BorderRadius.circular(8)),
+        child: Icon(icon, size: 20, color: sel ? Colors.black87 : Colors.grey[500]),
+      ),
     );
   }
 

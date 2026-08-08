@@ -7,13 +7,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final service = NoteService();
   await service.loadNotes();
-
-  runApp(
-    ChangeNotifierProvider<NoteService>.value(
-      value: service,
-      child: const UnmaskerApp(),
-    ),
-  );
+  runApp(ChangeNotifierProvider<NoteService>.value(value: service, child: const UnmaskerApp()));
 }
 
 class UnmaskerApp extends StatelessWidget {
@@ -25,22 +19,27 @@ class UnmaskerApp extends StatelessWidget {
       title: 'Unmasker',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: const Color(0xFFFFD54F),
-          brightness: Brightness.light,
-        ),
         useMaterial3: true,
-        
+        colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFFFFD54F), brightness: Brightness.light),
+        scaffoldBackgroundColor: const Color(0xFFFAFAFA),
         appBarTheme: const AppBarTheme(
           surfaceTintColor: Colors.transparent,
+          backgroundColor: Colors.white,
+          foregroundColor: Colors.black,
+          elevation: 0,
         ),
+        floatingActionButtonTheme: const FloatingActionButtonThemeData(
+          backgroundColor: Color(0xFFFFD54F),
+          foregroundColor: Colors.black87,
+          elevation: 2,
+        ),
+        cardTheme: CardThemeData(elevation: 0, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16))),
+        bottomSheetTheme: const BottomSheetThemeData(shape: RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(20)))),
       ),
       darkTheme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: const Color(0xFFFFD54F),
-          brightness: Brightness.dark,
-        ),
         useMaterial3: true,
+        colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFFFFD54F), brightness: Brightness.dark),
+        scaffoldBackgroundColor: const Color(0xFF1A1A1A),
       ),
       home: const HomeScreen(),
     );
