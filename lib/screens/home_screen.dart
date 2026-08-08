@@ -22,7 +22,7 @@ class _HomeScreenState extends State<HomeScreen> {
     final dark = service.globalDarkMode;
     final results = _query.isNotEmpty ? service.search(_query) : null;
     final allPinned = results ?? service.pinnedNotes;
-    final allUnpinned = results != null ? <SamsungNote>[] : service.unpinnedNotes;
+    final allUnpinned = results != null ? <UnmaskerNote>[] : service.unpinnedNotes;
 
     final pinned = _activeFolder == '전체' ? allPinned : allPinned.where((n) => n.folder == _activeFolder).toList();
     final unpinned = _activeFolder == '전체' ? allUnpinned : allUnpinned.where((n) => n.folder == _activeFolder).toList();
@@ -129,7 +129,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ]),
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: () => _openNote(SamsungNote()),
+        onPressed: () => _openNote(UnmaskerNote()),
         backgroundColor: const Color(0xFFFFD54F), foregroundColor: Colors.black,
         icon: const Icon(Icons.edit), label: const Text('새 노트', style: TextStyle(fontWeight: FontWeight.w600)),
       ),
@@ -151,7 +151,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  void _openNote(SamsungNote note) {
+  void _openNote(UnmaskerNote note) {
     Navigator.push(context, MaterialPageRoute(builder: (_) => EditorScreen(note: note)));
   }
 

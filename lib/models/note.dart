@@ -5,7 +5,7 @@ import 'package:uuid/uuid.dart';
 
 enum NoteSort { updated, created, title, folder }
 
-class SamsungNote {
+class UnmaskerNote {
   final String id;
   String title;
   String content;
@@ -20,7 +20,7 @@ class SamsungNote {
   List<Map<String, dynamic>> drawingStrokes;
   bool isDarkMode;
 
-  SamsungNote({
+  UnmaskerNote({
     String? id,
     this.title = '',
     this.content = '',
@@ -48,7 +48,7 @@ class SamsungNote {
         'isDarkMode': isDarkMode ? 1 : 0,
       };
 
-  factory SamsungNote.fromMap(Map<String, dynamic> map) => SamsungNote(
+  factory UnmaskerNote.fromMap(Map<String, dynamic> map) => UnmaskerNote(
         id: map['id'], title: map['title'] ?? '', content: map['content'] ?? '',
         folder: map['folder'] ?? '기본',
         createdAt: DateTime.parse(map['createdAt']), updatedAt: DateTime.parse(map['updatedAt']),
@@ -64,29 +64,29 @@ class SamsungNote {
 }
 
 class NoteService extends ChangeNotifier {
-  List<SamsungNote> _notes = [];
+  List<UnmaskerNote> _notes = [];
   Set<String> _folders = {'기본'};
   NoteSort _sortBy = NoteSort.updated;
   int _gridColumns = 2;
   bool _globalDarkMode = false;
 
-  List<SamsungNote> get notes => List.unmodifiable(_notes);
+  List<UnmaskerNote> get notes => List.unmodifiable(_notes);
   Set<String> get folders => Set.unmodifiable(_folders);
   NoteSort get sortBy => _sortBy;
   int get gridColumns => _gridColumns;
   bool get globalDarkMode => _globalDarkMode;
 
-  List<SamsungNote> search(String query) {
+  List<UnmaskerNote> search(String query) {
     final q = query.toLowerCase();
     return _notes.where((n) => n.title.toLowerCase().contains(q) || n.content.toLowerCase().contains(q)).toList()
       ..sort((a, b) => b.updatedAt.compareTo(a.updatedAt));
   }
 
-  List<SamsungNote> get pinnedNotes => _notes.where((n) => n.isPinned).toList()..sort(_sorter);
-  List<SamsungNote> get unpinnedNotes => _notes.where((n) => !n.isPinned).toList()..sort(_sorter);
-  List<SamsungNote> notesInFolder(String folder) => _notes.where((n) => n.folder == folder).toList()..sort(_sorter);
+  List<UnmaskerNote> get pinnedNotes => _notes.where((n) => n.isPinned).toList()..sort(_sorter);
+  List<UnmaskerNote> get unpinnedNotes => _notes.where((n) => !n.isPinned).toList()..sort(_sorter);
+  List<UnmaskerNote> notesInFolder(String folder) => _notes.where((n) => n.folder == folder).toList()..sort(_sorter);
 
-  int _sorter(SamsungNote a, SamsungNote b) {
+  int _sorter(UnmaskerNote a, UnmaskerNote b) {
     switch (_sortBy) {
       case NoteSort.updated: return b.updatedAt.compareTo(a.updatedAt);
       case NoteSort.created: return b.createdAt.compareTo(a.createdAt);
@@ -99,7 +99,7 @@ class NoteService extends ChangeNotifier {
   void setGridColumns(int cols) { _gridColumns = cols.clamp(1, 3); notifyListeners(); }
   void toggleDarkMode() { _globalDarkMode = !_globalDarkMode; notifyListeners(); }
 
-  void addNote(SamsungNote note) { _notes.insert(0, note); notifyListeners(); _saveNotes(); }
+  void addNote(UnmaskerNote note) { _notes.insert(0, note); notifyListeners(); _saveNotes(); }
   
   void updateNote(String id, {String? title, String? content, String? folder, bool? isPinned, List<String>? imagePaths, String? pdfPath, String? audioPath, List<Map<String, dynamic>>? drawingStrokes}) {
     final idx = _notes.indexWhere((n) => n.id == id);
@@ -133,7 +133,7 @@ class NoteService extends ChangeNotifier {
     final file = File('${dir.path}/notes.json');
     if (await file.exists()) {
       final data = jsonDecode(await file.readAsString()) as List;
-      _notes = data.map((m) => SamsungNote.fromMap(m)).toList();
+      _notes = data.map((m) => UnmaskerNote.fromMap(m)).toList();
       _folders = _notes.map((n) => n.folder).toSet(); _folders.add('기본');
       notifyListeners();
     }

@@ -30,7 +30,7 @@ class UnmaskerApp extends StatelessWidget {
           brightness: Brightness.light,
         ),
         useMaterial3: true,
-        fontFamily: 'SamsungOne',
+        
         appBarTheme: const AppBarTheme(
           surfaceTintColor: Colors.transparent,
         ),

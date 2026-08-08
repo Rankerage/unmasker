@@ -13,7 +13,7 @@ import '../services/live_session.dart';
 import 'live_share_screen.dart';
 
 class EditorScreen extends StatefulWidget {
-  final SamsungNote note;
+  final UnmaskerNote note;
   const EditorScreen({super.key, required this.note});
 
   @override
@@ -68,7 +68,7 @@ class _EditorScreenState extends State<EditorScreen> {
     final service = context.read<NoteService>();
     if (widget.note.title.isEmpty && _titleCtrl.text.isEmpty && _contentCtrl.text.isEmpty) return;
     if (widget.note.title.isEmpty) {
-      service.addNote(SamsungNote(
+      service.addNote(UnmaskerNote(
         title: _titleCtrl.text, content: _contentCtrl.text,
         folder: _selectedFolder, hasDrawing: _showDrawing,
         drawingStrokes: _strokes.map((s) => s.toMap()).toList(),

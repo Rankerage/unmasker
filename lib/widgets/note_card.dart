@@ -4,7 +4,7 @@ import 'package:intl/intl.dart';
 import '../models/note.dart';
 
 class NoteCard extends StatelessWidget {
-  final SamsungNote note;
+  final UnmaskerNote note;
   final bool isPinned;
   final VoidCallback onTap;
   final VoidCallback onTogglePin;
